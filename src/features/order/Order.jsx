@@ -53,7 +53,7 @@ function Order() {
 
       <ul className='divide-stone-200 divide-y border-b-stone-200 border-t-stone-200 '>
         {cart.map((item) => (
-          <OrderItem item={item} key={item.id} />
+          <OrderItem item={item} key={item.pizzaId} />
         ))}
       </ul>
 
