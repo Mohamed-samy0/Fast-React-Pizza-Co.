@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 function LinkButton({ children, to }) {
-  const className = 'text-sm text-blue-500 hover:text-blue-600 hover:underline';
+  const className =
+    'text-sm text-blue-500 hover:text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300';
 
   const navigate = useNavigate();
 

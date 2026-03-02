@@ -8,7 +8,8 @@ import EmptyCart from '../cart/EmptyCart';
 import store from '../../store';
 import { formatCurrency } from '../../utils/helpers';
 import { fetchAddress } from '../users/userSlice';
-// https://uibakery.io/regex-library/phone-number
+import { motion } from 'framer-motion';
+
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str,
@@ -35,14 +36,21 @@ function CreateOrder() {
   if (!cart.length) return <EmptyCart />;
 
   return (
-    <div className="px-4 py-6">
-      <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="px-4 py-6"
+    >
+      <h2 className="mb-8 text-xl font-semibold dark:text-stone-100">
+        Ready to order? Let's go!
+      </h2>
 
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">First Name</label>
+          <label className="sm:basis-40 dark:text-stone-200">First Name</label>
           <input
-            className="input grow"
+            className="input grow dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
             type="text"
             name="customer"
             required
@@ -51,11 +59,18 @@ function CreateOrder() {
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">Phone number</label>
+          <label className="sm:basis-40 dark:text-stone-200">
+            Phone number
+          </label>
           <div className="grow">
-            <input className="input w-full" type="tel" name="phone" required />
+            <input
+              className="input w-full dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
+              type="tel"
+              name="phone"
+              required
+            />
             {formErrors?.phone && (
-              <p className="mt-2 rounded-md bg-red-100 p-2 text-sm text-red-700">
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-sm text-red-700 dark:bg-red-900 dark:text-red-200">
                 {formErrors.phone}
               </p>
             )}
@@ -63,10 +78,10 @@ function CreateOrder() {
         </div>
 
         <div className="relative mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">Address</label>
+          <label className="sm:basis-40 dark:text-stone-200">Address</label>
           <div className="grow">
             <input
-              className="input w-full"
+              className="input w-full dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
               type="text"
               name="address"
               disabled={isLoadingAddress}
@@ -74,7 +89,7 @@ function CreateOrder() {
               defaultValue={address}
             />
             {addressStatus === 'error' && (
-              <p className="mt-2 rounded-md bg-red-100 p-2 text-sm text-red-700">
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-sm text-red-700 dark:bg-red-900 dark:text-red-200">
                 {errorAddress}
               </p>
             )}
@@ -97,14 +112,14 @@ function CreateOrder() {
 
         <div className="mb-12 flex items-center gap-5">
           <input
-            className="h-6 w-6 accent-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-offset-2"
+            className="h-6 w-6 accent-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-offset-2 dark:focus:ring-offset-stone-900"
             type="checkbox"
             name="priority"
             id="priority"
             value={withPriority}
             onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label className="font-medium" htmlFor="priority">
+          <label className="font-medium dark:text-stone-200" htmlFor="priority">
             Want to yo give your order priority?
           </label>
         </div>
@@ -127,7 +142,7 @@ function CreateOrder() {
           </Button>
         </div>
       </Form>
-    </div>
+    </motion.div>
   );
 }
 
